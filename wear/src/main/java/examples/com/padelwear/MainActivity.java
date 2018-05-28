@@ -12,7 +12,7 @@ import android.widget.Toast;
 public class MainActivity extends WearableActivity {
     // Elementos a mostrar en la lista
     String[] elementos = {"Partida", "Terminar partida", "Historial",
-            "Notificación", "Pasos", "Pulsaciones", "Terminar partida" };
+            "Notificación", "Pasos", "Pulsaciones", "Swipe Dismiss" };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +39,9 @@ public class MainActivity extends WearableActivity {
                          case 4:
                              startActivity(new Intent(MainActivity.this, Pasos.class));
                              break;
-
+                         case 6:
+                             startActivity(new Intent(MainActivity.this, SwipeDismiss.class));
+                             break;
                      }
                  }
             }
