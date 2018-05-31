@@ -71,4 +71,6 @@ public class Partida {
     public String getSusSets() {
         return String.valueOf(puntos.lastElement().getSusSets());
     }
+
+    public
 }

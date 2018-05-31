@@ -9,10 +9,20 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends WearableActivity {
+import com.google.android.gms.wearable.DataClient;
+import com.google.android.gms.wearable.DataEvent;
+import com.google.android.gms.wearable.DataEventBuffer;
+import com.google.android.gms.wearable.DataItem;
+import com.google.android.gms.wearable.DataMap;
+import com.google.android.gms.wearable.DataMapItem;
+import com.google.android.gms.wearable.Wearable;
+
+public class MainActivity extends WearableActivity implements DataClient.OnDataChangedListener {
     // Elementos a mostrar en la lista
     String[] elementos = {"Partida", "Terminar partida", "Historial",
             "Notificación", "Pasos", "Pulsaciones", "Swipe Dismiss" };
+
+    private static final String WEAR_ARRANCAR_ACTIVIDAD="/arrancar_actividad";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,5 +63,34 @@ public class MainActivity extends WearableActivity {
         lista.setCircularScrollingGestureEnabled(true);
         lista.setScrollDegreesPerScreen(180);
         lista.setBezelFraction(0.5f);
+    }
+    @Override protected void onResume() {
+        super.onResume();
+        Wearable.getDataClient(this).addListener(this);
+    }
+    @Override protected void onPause() {
+        super.onPause();
+        Wearable.getDataClient(this).removeListener(this);
+    }
+
+    @Override public void onDataChanged(DataEventBuffer eventos) {
+        for (DataEvent evento : eventos) {
+            if (evento.getType() == DataEvent.TYPE_CHANGED) {
+                DataItem item = evento.getDataItem();
+                if (item.getUri().getPath().equals(ITEM_CONTADOR)) {
+                    DataMap dataMap = DataMapItem.fromDataItem(item)
+                            .getDataMap();
+                    contador = dataMap.getInt(KEY_CONTADOR);
+                    runOnUiThread(new Runnable() {
+                        @Override public void run() {
+                            ((TextView) findViewById(R.id.textoContador))
+                                    .setText(Integer.toString(contador));
+                        }
+                    });
+                }
+            } else if (evento.getType() == DataEvent.TYPE_DELETED) {
+                // Algún ítem ha sido borrado
+            }
+        }
     }
 }
