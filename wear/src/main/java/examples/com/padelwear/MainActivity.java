@@ -23,6 +23,11 @@ public class MainActivity extends WearableActivity implements DataClient.OnDataC
             "Notificación", "Pasos", "Pulsaciones", "Swipe Dismiss" };
 
     private static final String WEAR_ARRANCAR_ACTIVIDAD="/arrancar_actividad";
+
+    private static final String KEY_CONTADOR = "com.example.key.contador";
+    private static final String ITEM_CONTADOR = "/contador";
+    private int contador = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

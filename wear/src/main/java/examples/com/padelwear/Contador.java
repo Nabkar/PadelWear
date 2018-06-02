@@ -149,6 +149,7 @@ public class Contador extends WearableActivity {
 		susJuegos.setText(partida.getSusJuegos());
 		misSets.setText(partida.getMisSets());
 		susSets.setText(partida.getSusSets());
+		sincronizaDatos();
 	}
 	@Override public void onEnterAmbient(Bundle ambientDetails) {
 		super.onEnterAmbient(ambientDetails);
@@ -189,6 +190,7 @@ public class Contador extends WearableActivity {
 		Calendar c = Calendar.getInstance();
 		c.setTime(new Date());
 		hora.setText(c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE));
+		sincronizaDatos();
 	}
 
 	private void sincronizaDatos() {

@@ -72,5 +72,5 @@ public class Partida {
         return String.valueOf(puntos.lastElement().getSusSets());
     }
 
-    public
+    public Byte[] getMisPuntosByte() { return Puntuacion.puntos[puntos.lastElement().getMiPuntuacion()].getBytes(); }
 }
